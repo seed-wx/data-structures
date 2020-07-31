@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    class Stack {
+        top = 0
+        items = []
+        // 入栈
+        push(element) {
+            this.items[this.top] = element
+            return ++this.top
+        }
+        // 出栈
+        pop() {
+            this.top--
+            return this.items.pop()
+        }
+        // 将栈顶的元素弹出
+        peek() {
+            return this.items[this.top - 1]
+        }
+        // 长度
+        size() {
+            return this.top
+        }
+        // 是否为空
+        isEmpty() {
+            return Boolean(!this.top)
+        }
+        // 清除
+        clear() {
+            this.items = []
+            this.top = 0
+        }
+    }
+
+    // let newStack = new Stack()
+    // newStack.push('a')
+    // newStack.push('b')
+    // console.log(newStack.items)
+    // console.log(newStack.pop())
+    // newStack.push('a')
+    // newStack.push('b')
+    // console.log(newStack.items)
+    // console.log(newStack.size())
+    // console.log(newStack.isEmpty())
+    // newStack.clear()
+    // console.log(newStack.isEmpty())
+
+    // 可以利用栈将一个数字从一种数制转换成另一种数制。假设想将数字 n 转换为以 b 为基数 的数字，实现转换的算法如下。
+    const conversionNumSys = (n, b) => {
+        let stack = new Stack()
+        while (n) {
+            stack.push(n % b)
+            n = Math.floor(n / b)
+        }
+        let numStr = ''
+        while (stack.size()) {
+            numStr += stack.pop()
+        }
+        return numStr
+    }
+    // console.log(conversionNumSys(5, 2))
+
+    // 使用栈判断一个单词是否是回文
+    const isPlalindrome = str => {
+        // let reversal = new Stack()
+        // for (let i = 0; i < str.length; i++) {
+        //     reversal.push(str[i])
+        // }
+
+    }
+</script>
+</body>
+</html>
