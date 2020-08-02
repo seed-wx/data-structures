@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    class Queue {
+        dataStore = []
+        enQueue(element) {
+            return this.dataStore.push(element)
+            // return this.dataStore.length
+        }
+        deQueue() {
+            return this.dataStore.shift()
+        }
+        front() {
+            return this.dataStore[0]
+        }
+        back() {
+            return this.dataStore[this.dataStore.length - 1]
+        }
+        toString() {
+            let str = ''
+            for (let i = 0; i < this.dataStore.length; i++) {
+                str += `${this.dataStore[i]} \n`
+            }
+            return str
+        }
+        size() {
+            return this.dataStore.length
+        }
+        clear() {
+            this.dataStore = []
+        }
+        isEmpty() {
+            return !this.dataStore.length
+        }
+    }
+    
+    // let newQueue = new Queue()
+    // console.log(newQueue.enQueue('dahuang'))
+    // console.log(newQueue.enQueue('xiaohei'))
+    // console.log(newQueue.enQueue('fenge'))
+    // console.log(newQueue.toString())
+    // alert(newQueue.isEmpty())
+    // console.log(newQueue.deQueue())
+    // console.log(newQueue.size())
+    // alert(newQueue)
+    // console.log(newQueue.clear())
+    // console.log(newQueue.dataStore)
+    // alert(newQueue.isEmpty())
+</script>
+</body>
+</html>
