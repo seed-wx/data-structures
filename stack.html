@@ -69,12 +69,22 @@
 
     // 使用栈判断一个单词是否是回文
     const isPlalindrome = str => {
-        // let reversal = new Stack()
-        // for (let i = 0; i < str.length; i++) {
-        //     reversal.push(str[i])
-        // }
-
+        let reversalStack = new Stack()
+        let reversalStr = ''
+        for (let i = 0; i < str.length; i++) {
+            reversalStack.push(str[i])
+        }
+        while (reversalStack.size()) {
+            reversalStr += `${reversalStack.pop()}`
+            // console.log(reversalStack.pop())
+            // console.log(reversalStack.top)
+            // console.log(reversalStack.size())
+        }
+        return reversalStr === str
     }
+
+    // console.log(isPlalindrome('123321'))
+    // console.log(isPlalindrome('1233we21'))
 </script>
 </body>
 </html>
