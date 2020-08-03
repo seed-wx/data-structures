@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>集合</title>
+</head>
+<body>
+<script>
+    class Set {
+        dataStore = {}
+        add(element) {      // 集合添加元素
+            if (this.has(element)) {
+                return false
+            }
+            this.dataStore[element] = element
+            return true
+        }
+        remove(element) {      // 集合删除元素
+            if (!this.has(element)) return false
+            delete this.dataStore[element]
+            return true
+        }
+        has(element) {      // 集合是否有此元素
+            return this.dataStore.hasOwnProperty(element)
+        }
+        clear() {      // 清除集合元素
+            this.dataStore = []
+        }
+        size() {      // 集合的长度
+            return this.value().length
+        }
+        value() {      // 返回集合中所有元素
+            return Object.keys(this.dataStore)
+        }
+        union(otherSet) {       // 集合并集
+            let newSet = new Set()
+            for (let key in this.dataStore) {
+                newSet.add(key)
+            }
+            for (let key in otherSet) {
+                newSet.add(key)
+            }
+            return newSet
+        }
+    }
+</script>
+</body>
+</html>
