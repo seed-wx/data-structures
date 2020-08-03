@@ -4,39 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>队列</title>
 </head>
 <body>
 <script>
     class Queue {
         dataStore = []
-        enQueue(element) {
+        enQueue(element) {      // 队尾添加元素
             return this.dataStore.push(element)
-            // return this.dataStore.length
         }
-        deQueue() {
+        deQueue() {      // 队首删除元素
             return this.dataStore.shift()
         }
-        front() {
+        front() {      // 不改变队列，返回队首元素
             return this.dataStore[0]
         }
-        back() {
+        back() {      // 不改变队列，返回队尾元素
             return this.dataStore[this.dataStore.length - 1]
         }
-        toString() {
+        toString() {    // 将队列中的元素转为字符串形式
             let str = ''
             for (let i = 0; i < this.dataStore.length; i++) {
                 str += `${this.dataStore[i]} \n`
             }
             return str
         }
-        size() {
+        size() {        // 队列长度
             return this.dataStore.length
         }
-        clear() {
+        clear() {       // 清除队列
             this.dataStore = []
         }
-        isEmpty() {
+        isEmpty() {     // 队列是否为空
             return !this.dataStore.length
         }
     }
