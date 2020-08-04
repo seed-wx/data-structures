@@ -28,9 +28,9 @@
             this.dataStore = []
         }
         size() {      // 集合的长度
-            return this.value().length
+            return this.values().length
         }
-        value() {      // 返回集合中所有元素
+        values() {      // 返回集合中所有元素
             return Object.keys(this.dataStore)
         }
         union(otherSet) {       // 集合并集
@@ -38,12 +38,53 @@
             for (let key in this.dataStore) {
                 newSet.add(key)
             }
-            for (let key in otherSet) {
+            for (let key in otherSet.dataStore) {
                 newSet.add(key)
             }
             return newSet
         }
+        intersection(otherSet) {        // 交集
+            let newSet = new Set()
+            for (let key in this.dataStore) {
+                if (otherSet.has(this.dataStore[key])) {
+                    newSet.add(this.dataStore[key])
+                }
+            }
+            return newSet
+        }
+        difference(otherSet) {      // 补集（差集）
+            let newSet = new Set()
+            for (let key in this.dataStore) {
+                if (!otherSet.has(this.dataStore[key])) {
+                    newSet.add(this.dataStore[key])
+                }
+            }
+            return newSet
+        }
+        subset(otherSet) {      // 子集
+            for (let key in this.dataStore) {
+                if (!otherSet.has(this.dataStore[key])) {
+                    return false
+                }
+            }
+            return true
+        }
     }
+
+    // let set1 = new Set()
+    // set1.add('abc')
+    // set1.add('bcd')
+    // set1.add('cde')
+    // let set2 = new Set()
+    // set2.add('abc')
+    // set2.add('123')
+    // set2.add('cde')
+    // console.log(set1.union(set2).values())
+    // console.log(set1.intersection(set2).values())
+    // console.log(set1.difference(set2).values())
+    // console.log(set1.subset(set2))
+    // set1.remove('bcd')
+    // console.log(set1.subset(set2))
 </script>
 </body>
 </html>
