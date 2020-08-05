@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>优先队列</title>
+</head>
+<body>
+<script>
+    class Element {
+        constructor(ele, priority) {
+            this.ele = ele
+            this.priority = priority
+        }
+    }
+    class PriorityQueue {
+        dataStore = []
+        enqueue(ele, priority) {
+            let newEle = new Element(ele, priority)
+            for (let i = 0; i < this.dataStore.length; i++) {
+                if (newEle.priority < this.dataStore[i].priority) {
+                    this.dataStore.splice(i, 0, newEle)
+                    return
+                }
+            }
+            this.dataStore.push(newEle)
+        }
+        dequeue() {
+            return this.dataStore.shift()
+        }
+        toString() {
+            let str = ''
+            for (let i = 0; i < this.dataStore.length; i++) {
+                str += `${this.dataStore[i].ele} priority:${this.dataStore[i].priority} \n`
+            }
+            return str
+        }
+        front() {
+            return this.dataStore[0]
+        }
+        back() {
+            return this.dataStore[this.dataStore.length - 1]
+        }
+        isEmpty() {
+            return Boolean(!this.dataStore.length)
+        }
+        size() {
+            return this.dataStore.length
+        }
+    }
+    
+    // let user = new PriorityQueue()
+    // console.log(user.isEmpty())
+    // user.enqueue('Lucy', 3)
+    // user.enqueue('Lilei', 2)
+    // console.log(user.front())
+    // console.log(user.back())
+    // user.enqueue('Jack', 5)
+    // user.enqueue('Lily', 4)
+    // user.enqueue('Tom', 0)
+    // user.enqueue('Harley', 1)
+    // console.log(user.toString())
+    // console.log(user.size())
+    // console.log(user.isEmpty())
+    // user.dequeue()
+    // console.log(user.toString())
+</script>
+</body>
+</html>
