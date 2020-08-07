@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>链表</title>
+</head>
+<body>
+<script>
+    class Node {
+        constructor(element) {
+            this.element = element
+            this.next = null
+        }
+    }
+    class LinkedList {
+        head = null
+        length = 0
+        addpend(element) {      // 链表尾部添加一个新的项
+            this.length++
+            let newNode = new Node(element)
+            if (!this.head) {
+                this.head = newNode
+                return
+            }
+            let currentNode = this.head
+            while (currentNode.next) {
+                currentNode = currentNode.next
+            }
+            currentNode.next = newNode
+        }
+        insert(position, element) {     // 链表的插入方法
+            if (position < 0 || position > this.length) return false
+            let newNode = new Node(element)
+            let index = 0
+            let currentNode = this.head
+            while (index < position - 1) {
+                currentNode = currentNode.next
+                index++
+            }
+            newNode.next = currentNode.next
+            currentNode.next = newNode
+            return Boolean(this.length++)
+        }
+        update(position, newEle) {      // 更新链表某一项数据
+            if (position < 0 || position > this.length) return false
+            let index = 0
+            let currentNode = this.head
+            while (index < position) {
+                currentNode = currentNode.next
+                index++
+            }
+            currentNode.element = newEle
+            return true
+        }
+        remove(element) {       // 删除链表中某一项
+            if (this.head && this.head.element == element) {
+                this.head = this.head.next
+                this.length--
+                return true
+            } 
+            let currentNode = this.head
+            let preNode = null
+            while (currentNode) {
+                if (currentNode.element == element) {
+                    preNode.next = currentNode.next
+                    this.length--
+                    return true
+                }
+                preNode = currentNode
+                currentNode = currentNode.next
+            }
+            return false
+        }
+        removeAt(position) {        // 删除链表中某个位置的项
+            if (position < 0 || position >= this.length) return false
+            this.length--
+            if (position == 0) {
+                this.head = this.head.next
+                return true
+            }
+            let index = 0
+            let currentNode = this.head
+            let preNode = null
+            while (index < position) {
+                preNode = currentNode
+                currentNode = currentNode.next
+                index++
+            }
+            preNode.next = currentNode.next
+            return true
+        }
+        get(position) {     // 根据位置查找链表中的项
+            if (position < 0 || position > this.length) return false
+            let index = 0
+            let currentNode = this.head
+            while (index < position) {
+                currentNode = currentNode.next
+                index++
+            }
+            return currentNode.element
+        }
+        toString() {        // 链表的toString方法
+            let str = ''
+            if (!this.head) return str
+            let currentNode = this.head
+            while (currentNode.next) {
+                str += `,${currentNode.element}`
+                currentNode = currentNode.next
+            }
+            return str.slice(1)
+        }
+        indexOf(element) {      // 找到链表中某一项的位置
+            let currentNode = this.head
+            for (let i = 0; i < this.length; i++) {
+                if (currentNode.element == element) {
+                    return i
+                }
+                currentNode = currentNode.next
+            }
+            return -1
+        }
+        size() {        // 链表的长度
+            return this.length
+        }
+        isEmpty() {     // 链表是否为空
+            return Boolean(!this.length)
+        }
+    }
+
+    let newLinkedList = new LinkedList() 
+</script>
+</body>
+</html>
