@@ -16,7 +16,7 @@
     class LinkedList {
         head = null
         length = 0
-        addpend(element) {      // 链表尾部添加一个新的项
+        append(element) {      // 链表尾部添加一个新的项
             this.length++
             let newNode = new Node(element)
             if (!this.head) {
@@ -41,17 +41,6 @@
             newNode.next = currentNode.next
             currentNode.next = newNode
             return Boolean(this.length++)
-        }
-        update(position, newEle) {      // 更新链表某一项数据
-            if (position < 0 || position > this.length) return false
-            let index = 0
-            let currentNode = this.head
-            while (index < position) {
-                currentNode = currentNode.next
-                index++
-            }
-            currentNode.element = newEle
-            return true
         }
         remove(element) {       // 删除链表中某一项
             if (this.head && this.head.element == element) {
@@ -90,6 +79,17 @@
             preNode.next = currentNode.next
             return true
         }
+        update(position, newEle) {      // 更新链表某一项数据
+            if (position < 0 || position > this.length) return false
+            let index = 0
+            let currentNode = this.head
+            while (index < position) {
+                currentNode = currentNode.next
+                index++
+            }
+            currentNode.element = newEle
+            return true
+        }
         get(position) {     // 根据位置查找链表中的项
             if (position < 0 || position > this.length) return false
             let index = 0
@@ -104,7 +104,7 @@
             let str = ''
             if (!this.head) return str
             let currentNode = this.head
-            while (currentNode.next) {
+            while (currentNode) {
                 str += `,${currentNode.element}`
                 currentNode = currentNode.next
             }
@@ -129,6 +129,32 @@
     }
 
     let newLinkedList = new LinkedList() 
+    // console.log(newLinkedList.size())
+    // console.log(newLinkedList.isEmpty())
+
+    newLinkedList.append('abc')
+    newLinkedList.append('123')
+    newLinkedList.append('bcd')
+    newLinkedList.append('cba')
+    // alert(newLinkedList)
+
+    newLinkedList.insert(2, '321')
+    // alert(newLinkedList)
+
+    newLinkedList.remove(123)
+    // alert(newLinkedList)
+
+    newLinkedList.removeAt(2)
+    // alert(newLinkedList)
+
+    newLinkedList.update(0, 'qwe')
+    // alert(newLinkedList)
+    
+    // alert(newLinkedList.get(1))
+
+    console.log(newLinkedList.indexOf('cba'))
+    console.log(newLinkedList.size())
+    console.log(newLinkedList.isEmpty())
 </script>
 </body>
 </html>
