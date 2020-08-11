@@ -34,7 +34,7 @@
             let newNode = new Node(element)
             if (!this.head) {   // 边界处理
                 this.head = newNode
-                return true
+                return Boolean(this.length++)
             }
             let index = 0
             let currentNode = this.head
