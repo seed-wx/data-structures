@@ -19,9 +19,9 @@
         append(element) {      // 链表尾部添加一个新的项
             this.length++
             let newNode = new Node(element)
-            if (!this.head) {
+            if (!this.head) {   // 边界处理
                 this.head = newNode
-                return
+                return true
             }
             let currentNode = this.head
             while (currentNode.next) {
@@ -32,6 +32,10 @@
         insert(position, element) {     // 链表的插入方法
             if (position < 0 || position > this.length) return false
             let newNode = new Node(element)
+            if (!this.head) {   // 边界处理
+                this.head = newNode
+                return true
+            }
             let index = 0
             let currentNode = this.head
             while (index < position - 1) {
@@ -132,29 +136,29 @@
     // console.log(newLinkedList.size())
     // console.log(newLinkedList.isEmpty())
 
-    newLinkedList.append('abc')
-    newLinkedList.append('123')
-    newLinkedList.append('bcd')
-    newLinkedList.append('cba')
+    // newLinkedList.append('abc')
+    // newLinkedList.append('123')
+    // newLinkedList.append('bcd')
+    // newLinkedList.append('cba')
     // alert(newLinkedList)
 
-    newLinkedList.insert(2, '321')
-    // alert(newLinkedList)
+    newLinkedList.insert(0, '321')
+    console.log(newLinkedList)
 
-    newLinkedList.remove(123)
-    // alert(newLinkedList)
+    // newLinkedList.remove(123)
+    // // alert(newLinkedList)
 
-    newLinkedList.removeAt(2)
-    // alert(newLinkedList)
+    // newLinkedList.removeAt(2)
+    // // alert(newLinkedList)
 
-    newLinkedList.update(0, 'qwe')
-    // alert(newLinkedList)
+    // newLinkedList.update(0, 'qwe')
+    // // alert(newLinkedList)
     
-    // alert(newLinkedList.get(1))
+    // // alert(newLinkedList.get(1))
 
-    console.log(newLinkedList.indexOf('cba'))
-    console.log(newLinkedList.size())
-    console.log(newLinkedList.isEmpty())
+    // console.log(newLinkedList.indexOf('cba'))
+    // console.log(newLinkedList.size())
+    // console.log(newLinkedList.isEmpty())
 </script>
 </body>
 </html>
