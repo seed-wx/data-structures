@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    class HashTable {
+        dataStore = []
+        length = 0
+        limit = 137
+        H = 37
+        getIndex(key, length) {     // 通过霍纳算法获取下标
+            let hashCode = key[0]
+            for (let i = 1; i < key.length; i++) {
+                hashCode = this.H * hashCode + key[i]
+            }
+            return hashCode % length
+        }
+        put(key, value) {
+            let index = this.getIndex(key, this.limit)
+            let bucket = this.dataStore[index]
+            let existKey = false
+            if (!bucket) {      // 下标值对应的数据为空
+                bucket = []
+                this.dataStore[index] = bucket
+                return
+            }
+            for (let i = 0; i < bucket.length; i++) {
+                if (bucket[i][0] === key) {   // 如果能找到，更新key对应的值
+                    bucket[i][1] = value
+                    existKey = true
+                    return
+                }
+            }
+            if (!existKey) {    // 如果不能找到，新增key value
+                bucket.push([key, value])
+                this.length++
+                if (this.length > this.limit * 0.75) {      // 如果hash表中的容量大于装载因子，扩容
+                    let limit = this.getPrime(this.limit * 2)
+                    this.reset(limit)
+                }
+            }
+        }
+        remove(key) {       // 通过key删除数据
+            let index = this.getIndex(key, this.limit)
+            let bucket = this.dataStore[index]
+            if (!bucket) return null
+            for (let i = 0; i < bucket.length; i++) {
+                if (key == bucket[i][0]) {
+                    bucket.splice(i, 1)
+                    this.length--
+                    return bucket[i][1]
+                    if (this.limit > 7 && this.length < this.limit * 0.25) {    // 缩容
+                        let limit = this.getPrime(this.limit * 2)
+                        this.reset(limit)
+                    }
+                }
+            }
+            return null
+        }
+        get(key) {      // 通过key获取value
+            let index = this.getIndex(key, this.limit)
+            let bucket = this.dataStore[index]
+            if (!bucket) return null
+            for (let i = 0; i < bucket.length; i++) {
+                if (key == bucket[i][0]) {
+                    return bucket[i][1]
+                }
+            }
+            return null
+        }
+        isEmpty() {     // hash表是否为空
+            return Boolean(!this.length)
+        }
+        size() {    // hash表的长度
+            return this.length
+        }
+        reset(newLimit) {       // 重置hash表
+            let lastDataStore = this.dataStore
+            this.dataStore = []
+            this.length = 0
+            this.limit = newLimit
+            for (let i = 0; i < lastDataStore.length; i++) {
+                if (!lastDataStore[i]) continue
+                for (let j = 0; j < lastDataStore[i].length; j++) {
+                    this.put(lastDataStore[i][j][0], lastDataStore[i][j][1])
+                }
+            }
+        }
+        isPrime(num) {      // 是否是质数
+            let sqrtNum = parseInt(Math.sqrt(num))
+            for (let i = 0; i <= sqrtNum; i++) {
+                if (num % i == 0) {
+                    return false
+                }
+            }
+            return true
+        }
+        getPrime(num) {     // 获取质数
+            while (!this.isPrime(num)) {    // 如果不是质数，每次加1，直到是质数为止
+                num++
+            }
+            return num
+        }
+    }
+
+    // let newHashTable = new HashTable()
+    // console.log(newHashTable.get('voice'))
+    // console.log(newHashTable.size())
+
+    // newHashTable.put('name', '大黑')
+    // newHashTable.put('age', '2')
+    // newHashTable.put('color', 'black')
+    // newHashTable.put('height', '50cm')
+    // newHashTable.put('width', '1m')
+    // newHashTable.put('voice', '喵喵喵')
+
+    // console.log(newHashTable.size())
+    // console.log(newHashTable.get('voice'))
+</script>
+</body>
+</html>
