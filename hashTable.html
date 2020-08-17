@@ -92,7 +92,7 @@
         }
         isPrime(num) {      // 是否是质数
             let sqrtNum = parseInt(Math.sqrt(num))
-            for (let i = 0; i <= sqrtNum; i++) {
+            for (let i = 2; i <= sqrtNum; i++) {
                 if (num % i == 0) {
                     return false
                 }
