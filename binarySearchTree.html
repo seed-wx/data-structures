@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二叉查找树</title>
+</head>
+<body>
+    <script>
+        class Node {
+            constructor(key) {
+                this.key = key
+                this.left = null
+                this.right = null
+            }
+        }
+        class BinarySearchTree {
+            root = null
+            insert(key) {      // 插入
+                let newNode = new Node(key)
+                if (!this.root) {
+                    this.root = newNode
+                    return
+                }
+                this.insertNode(this.root, newNode)
+            }
+            insertNode(curNode, newNode) {
+                if (newNode.key < curNode.key) {    // 进入左子树
+                    if (!curNode.left) {
+                        curNode.left = newNode
+                        return
+                    }
+                    this.insertNode(curNode.left, newNode)     // 如果当前节点的左子节点有值，继续递归查找
+                } else {        // 进入右子树
+                    if (!curNode.right) {
+                        curNode.right = newNode
+                        return
+                    }
+                    this.insertNode(curNode.right, newNode)     // 如果当前节点的右子节点有值，继续递归查找
+                }
+            }
+            preOrderTraverse(handle) {      // 先序遍历
+                this.preOrderTraverseNode(this.root, handle)
+            }
+            preOrderTraverseNode(node, handle) {
+                if (node) {
+                    handle(node.key)
+                    this.preOrderTraverseNode(node.left, handle)
+                    this.preOrderTraverseNode(node.right, handle)
+                }
+            }
+            midOrderTraverse(handle) {      // 中序遍历
+                this.midOrderTraverseNode(this.root, handle)
+            }
+            midOrderTraverseNode(node, handle) {
+                if (node) {
+                    this.midOrderTraverseNode(node.left, handle)
+                    handle(node.key)
+                    this.midOrderTraverseNode(node.right, handle)
+                }
+            }
+            postOrderTraverse(handle) {     // 后序遍历
+                this.postOrderTraverseNode(this.root, handle)
+            }
+            postOrderTraverseNode(node, handle) {
+                if (node) {
+                    this.postOrderTraverseNode(node.left, handle)
+                    this.postOrderTraverseNode(node.right, handle)
+                    handle(node.key)
+                }
+            }
+        }
+
+        let bst = new BinarySearchTree()
+        bst.insert(9)
+        bst.insert(11)
+        bst.insert(7)
+        bst.insert(5)
+        bst.insert(8)
+        bst.insert(10)
+        bst.insert(12)
+        bst.insert(3)
+
+        // 先序遍历测试
+        let arr = []
+        bst.preOrderTraverse((val) => {
+            arr.push(val)
+        })
+        console.log(arr)
+        // 中序遍历测试
+        arr = []
+        bst.midOrderTraverse((val) => {
+            arr.push(val)
+        })
+        console.log(arr)
+        // 后序遍历测试
+        arr = []
+        bst.postOrderTraverse((val) => {
+            arr.push(val)
+        })
+        console.log(arr)
+    </script>
+</body>
+</html>

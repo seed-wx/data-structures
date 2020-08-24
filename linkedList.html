@@ -38,9 +38,8 @@
             }
             let index = 0
             let currentNode = this.head
-            while (index < position - 1) {
+            while (index++ < position - 1) {
                 currentNode = currentNode.next
-                index++
             }
             newNode.next = currentNode.next
             currentNode.next = newNode
@@ -75,32 +74,29 @@
             let index = 0
             let currentNode = this.head
             let preNode = null
-            while (index < position) {
+            while (index++ < position) {
                 preNode = currentNode
                 currentNode = currentNode.next
-                index++
             }
             preNode.next = currentNode.next
             return true
         }
         update(position, newEle) {      // 更新链表某一项数据
-            if (position < 0 || position > this.length) return false
+            if (position < 0 || position >= this.length) return false
             let index = 0
             let currentNode = this.head
-            while (index < position) {
+            while (index++ < position) {
                 currentNode = currentNode.next
-                index++
             }
             currentNode.element = newEle
             return true
         }
         get(position) {     // 根据位置查找链表中的项
-            if (position < 0 || position > this.length) return false
+            if (position < 0 || position >= this.length) return false
             let index = 0
             let currentNode = this.head
-            while (index < position) {
+            while (index++ < position) {
                 currentNode = currentNode.next
-                index++
             }
             return currentNode.element
         }

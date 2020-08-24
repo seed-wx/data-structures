@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    class Node {
+        constructor(element) {
+            this.element = element
+            this.pre = null
+            this.next = null
+        }
+    }
+    class DoublyLinkedList {
+        head = null
+        tail = null
+        length = 0
+        append(element) {   
+            let node = new Node(element)
+            this.tail = node
+            if (!this.head) {
+                this.head = node
+                return Boolean(this.length++)
+            }
+            let currentNode = this.head
+            while (currentNode.next) {
+                currentNode = currentNode.next
+            }
+            currentNode.next = node
+            node.pre = currentNode
+            return Boolean(this.length++)
+        }
+        insert(position, element) {
+            if (position < 0 || position > this.length) return false
+            if (!this.head || position == this.length) {    // 在链表最后位置添加
+                this.tail = node
+            }
+            if (!this.head) {   // 边界处理
+                this.head = node
+                return Boolean(this.length++)
+            }
+            let currentNode = this.head
+            let index = 0
+            let node = new Node(element)
+            if (index < position - 1) {
+                currentNode = currentNode.next
+                index++
+            }
+            node.next = currentNode.next
+            currentNode.next.pre = node
+            currentNode.next = node
+            node.pre = currentNode
+            return Boolean(this.length++)
+        }
+        remove(element) {
+            if (this.head && this.head.element == element) {
+                this.head = this.head.next
+                this.length--
+                return true
+            }
+            let currentNode = this.head 
+            while (currentNode) {
+                if (currentNode.element == element) {
+                    currentNode.pre = currentNode.next
+                    this.length--
+                    return true
+                }
+                currentNode = currentNode.next
+            }
+            return false
+        }
+        removeAt(position) {
+            if (position < 0 || position >= this.length) return null
+            this.length--
+            if (position == 0) {     // 删除第一个并且链表只有一项时
+                this.head = this.head.next
+
+                if (position == this.length) {
+                    this.tail = null
+                } else {
+                    this.head.next.pre = null
+                }
+                return true
+            }
+            if (position == 0) {
+                
+                
+            }
+            let index = 0
+            let currentNode = this.head
+            while (index++ < position) {
+                currentNode = currentNode.next
+            }
+            currentNode.next.pre = currentNode.pre.next
+            currentNode.pre.next = currentNode.next
+            return true
+        }
+        indexOf(element) {
+            if (!this.length) return -1
+            let currentNode = this.head
+            let index = 0
+            while (currentNode) {
+                if (currentNode.element == element) {
+                    return index
+                }
+                index++
+                currentNode = currentNode.next
+            }
+            return -1
+        }
+        getHead() {
+
+        }
+    }
+</script>
+</body>
+</html>
