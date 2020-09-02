@@ -69,36 +69,142 @@
                     handle(node.key)
                 }
             }
+            min() {     // 最小值
+                let node = this.root
+                while(node.left) {
+                    node = node.left
+                }
+                return node && node.key
+            }
+            max() {     // 最大值
+                let node = this.root
+                while(node.right) {
+                    node = node.right
+                }
+                return node && node.key
+            }
+            search(key) {       // 搜索特定的值
+                let node = this.root
+                while(node) {
+                    if (key < node.key) {
+                        node = node.left
+                    } else if (key > node.key) {
+                        node = node.right
+                    } else {
+                        return true
+                    }
+                }
+                return false
+            }
+            remove(key) {       // 删除
+                let parentNode = null
+                let currentNode = this.root
+                let arrow
+                while(key != currentNode.key) {        // 查找要删除节点的位置
+                    parentNode = currentNode
+                    if (key < currentNode.key) {  
+                        currentNode = currentNode.left
+                        arrow = 'left'
+                    } else {  
+                        currentNode = currentNode.right
+                        arrow = 'right'
+                    } 
+                    if (!currentNode) return false      // 找不到返回false
+                }
+                // 如果要删除的是叶子节点
+                if (!currentNode.left && !currentNode.right) {
+                    if(parentNode.key == this.root.key) {   // 如果要删除的是根节点
+                        this.root = null
+                        return true
+                    }
+                    parentNode[arrow] = null
+                }
+                // 如果要删除的只有左子节点或右子节点
+                if (!currentNode.left || !currentNode.right) {
+                    if (currentNode.key == this.root.key) {
+                        this.root = !currentNode.left ? currentNode.right : currentNode.left
+                        return
+                    }
+                    parentNode[arrow] = !currentNode.left ? currentNode.right : currentNode.left
+                    return
+                }
+                // 如果要删除的左右子节点都有
+                let moveNode = this.findAdjoin(currentNode)
+                moveNode.left = currentNode.left
+                moveNode.right = currentNode.right
+                parentNode[arrow] = moveNode
+            }
+            findAdjoin(node) {      // 寻找要删除节点的前驱或后缀
+                let currentNode = node.right
+                let arrow = 'right'
+                let parentNode = node
+                while (currentNode.left) {
+                    parentNode = currentNode
+                    currentNode = currentNode.left
+                    arrow = 'left'
+                }
+                parentNode[arrow] = currentNode.right
+                return currentNode
+            }
         }
 
         let bst = new BinarySearchTree()
+
+        // 插入测试
         bst.insert(9)
-        bst.insert(11)
+        // bst.insert(11)
         bst.insert(7)
-        bst.insert(5)
+        bst.insert(15)
+        bst.insert(2)
+        // bst.insert(5)
         bst.insert(8)
+        bst.insert(11)
+        bst.insert(20)
+        bst.insert(1)
+        bst.insert(3)
         bst.insert(10)
         bst.insert(12)
-        bst.insert(3)
+        bst.insert(18)
+        bst.insert(23)
+        bst.insert(19)
 
-        // 先序遍历测试
-        let arr = []
-        bst.preOrderTraverse((val) => {
-            arr.push(val)
-        })
-        console.log(arr)
-        // 中序遍历测试
+        // 删除测试
         arr = []
         bst.midOrderTraverse((val) => {
             arr.push(val)
         })
         console.log(arr)
-        // 后序遍历测试
+
+        bst.remove(20)
+        bst.remove(7)
+        bst.remove(18)
+        bst.remove(3)
+        bst.remove(15)
+        
         arr = []
-        bst.postOrderTraverse((val) => {
+        bst.midOrderTraverse((val) => {
             arr.push(val)
         })
         console.log(arr)
+
+        // 先序遍历测试
+        // let arr = []
+        // bst.preOrderTraverse((val) => {
+        //     arr.push(val)
+        // })
+        // console.log(arr)
+        // 中序遍历测试
+        // arr = []
+        // bst.midOrderTraverse((val) => {
+        //     arr.push(val)
+        // })
+        // console.log(arr)
+        // 后序遍历测试
+        // arr = []
+        // bst.postOrderTraverse((val) => {
+        //     arr.push(val)
+        // })
+        // console.log(arr)
     </script>
 </body>
 </html>
